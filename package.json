@@ -1,0 +1,87 @@
+{
+  "name": "agentia-plugin-flowsweep",
+  "description": "Agentia CLI plugin that automates the manual steps behind deleting Salesforce Flows: finds removed Flows in the user story diff, checks references and paused interviews, deactivates, backs up, and deletes every version",
+  "version": "0.1.0",
+  "author": "Samyak Khadse",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samyak619/agentia-plugin-flowsweep.git"
+  },
+  "homepage": "https://github.com/samyak619/agentia-plugin-flowsweep#readme",
+  "keywords": [
+    "oclif-plugin",
+    "agentia",
+    "copado",
+    "salesforce",
+    "flow",
+    "destructive-changes"
+  ],
+  "files": [
+    "/dist",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@copado/agentia-plugin-sdk": "^0.1.2",
+    "@inquirer/prompts": "^7.10.1"
+  },
+  "peerDependencies": {
+    "@oclif/core": "^4"
+  },
+  "devDependencies": {
+    "@oclif/core": "^4",
+    "@types/node": "^22",
+    "oclif": "^4",
+    "shx": "^0.3.3",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "agentia": {
+    "hostApi": 1,
+    "requires": [
+      "work.getWorkItem",
+      "ai.ask"
+    ],
+    "permissions": {
+      "network": [],
+      "files": "repository",
+      "commands": [
+        "git",
+        "sf"
+      ],
+      "env": [
+        "COMSPEC",
+        "HOME",
+        "PATH",
+        "SYSTEMROOT",
+        "TEMP",
+        "TMP",
+        "USERPROFILE"
+      ]
+    },
+    "hooks": []
+  },
+  "oclif": {
+    "bin": "agentia",
+    "dirname": "agentia-cli",
+    "commands": "./dist/commands",
+    "topics": {
+      "flow": {
+        "description": "Automate Salesforce Flow deletion that Copado pipelines leave as manual steps"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "test": "npm run build && node --test \"test/*.test.mjs\"",
+    "clean": "shx rm -f oclif.manifest.json",
+    "prepack": "npm run build && oclif manifest",
+    "postpack": "npm run clean"
+  }
+}
