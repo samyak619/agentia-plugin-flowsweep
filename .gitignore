@@ -3,3 +3,4 @@ dist/
 oclif.manifest.json
 *.tgz
 .flowsweep/
+tsconfig.tsbuildinfo
